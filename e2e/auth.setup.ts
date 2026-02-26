@@ -1,4 +1,5 @@
 import { test as setup, expect } from "@playwright/test";
+import fs from "fs";
 import path from "path";
 
 const authFile = path.join(__dirname, "../playwright/.auth/user.json");
@@ -7,10 +8,13 @@ const PRIVY_TEST_OTP = process.env.TEST_USER_OTP;
 const PRIVY_TEST_EMAIL = process.env.TEST_USER_EMAIL;
 
 setup("authenticate via Privy", async ({ page }) => {
-  setup.skip(
-    !PRIVY_TEST_EMAIL || !PRIVY_TEST_OTP,
-    "TEST_USER_EMAIL and TEST_USER_OTP must be set"
-  );
+  if (!PRIVY_TEST_EMAIL || !PRIVY_TEST_OTP) {
+    // Create an empty storage state so downstream tests can start
+    // (they'll fail on auth-gated UI, but won't crash on missing file)
+    fs.mkdirSync(path.dirname(authFile), { recursive: true });
+    fs.writeFileSync(authFile, JSON.stringify({ cookies: [], origins: [] }));
+    setup.skip(true, "TEST_USER_EMAIL and TEST_USER_OTP must be set");
+  }
 
   const email = PRIVY_TEST_EMAIL as string;
   const otp = PRIVY_TEST_OTP as string;
