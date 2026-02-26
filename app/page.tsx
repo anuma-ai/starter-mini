@@ -10,6 +10,7 @@ import {
 } from "react";
 import { PrivyProvider, usePrivy, useIdentityToken } from "@privy-io/react-auth";
 import { useChat } from "@anuma/sdk/react";
+import type { LlmapiResponseResponse, LlmapiResponseOutputItem } from "@anuma/sdk";
 import { Streamdown } from "streamdown";
 import { HugeiconsIcon } from "@hugeicons/react";
 import {
@@ -30,24 +31,6 @@ type Message = {
   content: string;
 };
 
-type OutputTextPart = {
-  type: "output_text";
-  text?: string;
-};
-
-type ContentPart = OutputTextPart | { type: string };
-
-type OutputMessage = {
-  type: "message";
-  role: "assistant";
-  content?: ContentPart[];
-};
-
-type OutputItem = OutputMessage | { type: string };
-
-type ChatResponse = {
-  output?: OutputItem[];
-};
 //#endregion messageType
 
 // ---------------------------------------------------------------------------
@@ -187,15 +170,15 @@ function Chat() {
   const bottomRef = useRef<HTMLDivElement>(null);
 
   // Helper: extract assistant text from Responses API output
-  const extractResponseText = useCallback((response: ChatResponse): string => {
+  const extractResponseText = useCallback((response: LlmapiResponseResponse): string => {
     const output = response?.output;
     if (!Array.isArray(output)) return streamingRef.current;
     return (
       output
-        .filter((item: OutputItem): item is OutputMessage => item.type === "message" && (item as OutputMessage).role === "assistant")
+        .filter((item: LlmapiResponseOutputItem) => item.type === "message" && item.role === "assistant")
         .flatMap((item) => item.content || [])
-        .filter((part): part is OutputTextPart => part.type === "output_text")
-        .map((part) => part.text || "")
+        .filter((part) => part.type === "output_text")
+        .map((part) => ("text" in part ? part.text : "") || "")
         .join("") || streamingRef.current
     );
   }, []);
