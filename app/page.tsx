@@ -29,6 +29,25 @@ type Message = {
   role: "user" | "assistant";
   content: string;
 };
+
+type OutputTextPart = {
+  type: "output_text";
+  text?: string;
+};
+
+type ContentPart = OutputTextPart | { type: string };
+
+type OutputMessage = {
+  type: "message";
+  role: "assistant";
+  content?: ContentPart[];
+};
+
+type OutputItem = OutputMessage | { type: string };
+
+type ChatResponse = {
+  output?: OutputItem[];
+};
 //#endregion messageType
 
 // ---------------------------------------------------------------------------
@@ -41,6 +60,7 @@ const privyClientId = process.env.NEXT_PUBLIC_PRIVY_CLIENT_ID;
 
 export default function Home() {
   const [mounted, setMounted] = useState(false);
+  // eslint-disable-next-line react-hooks/set-state-in-effect -- hydration guard, runs once on mount
   useEffect(() => setMounted(true), []);
 
   if (!mounted) return null;
@@ -167,15 +187,15 @@ function Chat() {
   const bottomRef = useRef<HTMLDivElement>(null);
 
   // Helper: extract assistant text from Responses API output
-  const extractResponseText = useCallback((response: any): string => {
+  const extractResponseText = useCallback((response: ChatResponse): string => {
     const output = response?.output;
     if (!Array.isArray(output)) return streamingRef.current;
     return (
       output
-        .filter((item: any) => item.type === "message" && item.role === "assistant")
-        .flatMap((item: any) => item.content || [])
-        .filter((part: any) => part.type === "output_text")
-        .map((part: any) => part.text || "")
+        .filter((item: OutputItem): item is OutputMessage => item.type === "message" && (item as OutputMessage).role === "assistant")
+        .flatMap((item) => item.content || [])
+        .filter((part): part is OutputTextPart => part.type === "output_text")
+        .map((part) => part.text || "")
         .join("") || streamingRef.current
     );
   }, []);
