@@ -38,4 +38,4 @@ array. The streaming buffer is then cleared.
   });
 ```
 
-[app/page.tsx](https://github.com/anuma-ai/starter-mini/blob/main/app/page.tsx#L204-L229)
+[app/page.tsx](https://github.com/anuma-ai/starter-mini/blob/main/app/page.tsx#L187-L212)

@@ -41,4 +41,4 @@ request so the model has context.
   );
 ```
 
-[app/page.tsx](https://github.com/anuma-ai/starter-mini/blob/main/app/page.tsx#L238-L268)
+[app/page.tsx](https://github.com/anuma-ai/starter-mini/blob/main/app/page.tsx#L221-L251)

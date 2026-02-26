@@ -35,7 +35,7 @@ export default function Home() {
 }
 ```
 
-[app/page.tsx](https://github.com/anuma-ai/starter-mini/blob/main/app/page.tsx#L58-L81)
+[app/page.tsx](https://github.com/anuma-ai/starter-mini/blob/main/app/page.tsx#L41-L64)
 
 ## Auth Gate
 
@@ -62,7 +62,7 @@ function AuthGate() {
 }
 ```
 
-[app/page.tsx](https://github.com/anuma-ai/starter-mini/blob/main/app/page.tsx#L89-L105)
+[app/page.tsx](https://github.com/anuma-ai/starter-mini/blob/main/app/page.tsx#L72-L88)
 
 ## Getting an Identity Token
 
@@ -79,4 +79,4 @@ always returns the latest value without causing re-renders.
   const getToken = useCallback(async () => tokenRef.current, []);
 ```
 
-[app/page.tsx](https://github.com/anuma-ai/starter-mini/blob/main/app/page.tsx#L172-L177)
+[app/page.tsx](https://github.com/anuma-ai/starter-mini/blob/main/app/page.tsx#L155-L160)
