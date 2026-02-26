@@ -44,6 +44,3 @@ next-env.d.ts
 playwright-report/
 test-results/
 playwright/.auth/
-
-# generated docs
-/docs

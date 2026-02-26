@@ -48,7 +48,7 @@ export default defineConfig({
       name: "chromium",
       use: {
         ...devices["Desktop Chrome"],
-        storageState: fs.existsSync(authFile) ? authFile : undefined,
+        storageState: authFile,
         viewport: { width: 1920, height: 1080 },
       },
       dependencies: ["setup"],

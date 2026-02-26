@@ -30,6 +30,9 @@ jobs:
         with:
           node-version: "22"
 
+      - name: Update npm
+        run: npm install -g npm@11
+
       - name: Install dependencies
         run: npm ci
 
@@ -65,6 +68,9 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: "22"
+
+      - name: Update npm
+        run: npm install -g npm@11
 
       - name: Install dependencies
         run: npm ci

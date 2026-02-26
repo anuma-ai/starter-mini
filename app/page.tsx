@@ -10,6 +10,7 @@ import {
 } from "react";
 import { PrivyProvider, usePrivy, useIdentityToken } from "@privy-io/react-auth";
 import { useChat } from "@anuma/sdk/react";
+import type { LlmapiResponseResponse, LlmapiResponseOutputItem } from "@anuma/sdk";
 import { Streamdown } from "streamdown";
 import { HugeiconsIcon } from "@hugeicons/react";
 import {
@@ -29,6 +30,7 @@ type Message = {
   role: "user" | "assistant";
   content: string;
 };
+
 //#endregion messageType
 
 // ---------------------------------------------------------------------------
@@ -41,6 +43,7 @@ const privyClientId = process.env.NEXT_PUBLIC_PRIVY_CLIENT_ID;
 
 export default function Home() {
   const [mounted, setMounted] = useState(false);
+  // eslint-disable-next-line react-hooks/set-state-in-effect -- hydration guard, runs once on mount
   useEffect(() => setMounted(true), []);
 
   if (!mounted) return null;
@@ -167,15 +170,15 @@ function Chat() {
   const bottomRef = useRef<HTMLDivElement>(null);
 
   // Helper: extract assistant text from Responses API output
-  const extractResponseText = useCallback((response: any): string => {
+  const extractResponseText = useCallback((response: LlmapiResponseResponse): string => {
     const output = response?.output;
     if (!Array.isArray(output)) return streamingRef.current;
     return (
       output
-        .filter((item: any) => item.type === "message" && item.role === "assistant")
-        .flatMap((item: any) => item.content || [])
-        .filter((part: any) => part.type === "output_text")
-        .map((part: any) => part.text || "")
+        .filter((item: LlmapiResponseOutputItem) => item.type === "message" && item.role === "assistant")
+        .flatMap((item) => item.content || [])
+        .filter((part) => part.type === "output_text")
+        .map((part) => ("text" in part ? part.text : "") || "")
         .join("") || streamingRef.current
     );
   }, []);
