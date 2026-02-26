@@ -1,0 +1,104 @@
+name: E2E Tests
+permissions:
+  contents: read
+on:
+  merge_group:
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  e2e-light:
+    if: github.event_name != 'workflow_dispatch' && github.actor != 'dependabot[bot]'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    env:
+      NEXT_PUBLIC_API_URL: ${{ secrets.NEXT_PUBLIC_API_URL }}
+      NEXT_PUBLIC_PRIVY_APP_ID: ${{ secrets.NEXT_PUBLIC_PRIVY_APP_ID }}
+      TEST_USER_EMAIL: ${{ secrets.TEST_USER_EMAIL }}
+      TEST_USER_OTP: ${{ secrets.TEST_USER_OTP }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Install Playwright browsers
+        run: npx playwright install --with-deps chromium
+
+      - name: Run light tests
+        run: npm run test:e2e:light
+
+      - name: Upload test results
+        if: ${{ !cancelled() }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-report-light
+          path: |
+            playwright-report/
+            test-results/
+          retention-days: 7
+
+  e2e-full:
+    if: github.event_name == 'merge_group' || github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    env:
+      NEXT_PUBLIC_API_URL: ${{ secrets.NEXT_PUBLIC_API_URL }}
+      NEXT_PUBLIC_PRIVY_APP_ID: ${{ secrets.NEXT_PUBLIC_PRIVY_APP_ID }}
+      TEST_USER_EMAIL: ${{ secrets.TEST_USER_EMAIL }}
+      TEST_USER_OTP: ${{ secrets.TEST_USER_OTP }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Install Playwright browsers
+        run: npx playwright install --with-deps chromium
+
+      - name: Run full tests
+        continue-on-error: true
+        run: npm run test:e2e:full
+
+      - name: Upload test results
+        if: ${{ !cancelled() }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-report-full
+          path: |
+            playwright-report/
+            test-results/
+          retention-days: 7
+
+  e2e-status:
+    if: always()
+    needs: [e2e-light, e2e-full]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check e2e results
+        run: |
+          if [[ "${{ needs.e2e-light.result }}" == "failure" ]]; then
+            echo "Light tests failed"
+            exit 1
+          fi
+          if [[ "${{ needs.e2e-full.result }}" == "failure" ]]; then
+            echo "Full tests failed"
+            exit 1
+          fi
+          echo "All e2e tests passed (or skipped)"

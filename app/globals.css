@@ -1,0 +1,216 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: -apple-system, BlinkMacSystemFont, "SF Pro Text",
+    "SF Pro Display", Inter, var(--font-geist-sans), system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+}
+
+:root {
+  --radius: 0.625rem;
+  --background: oklch(1 0 0);
+  --foreground: oklch(0.141 0.005 285.823);
+  --card: oklch(0.97 0 0);
+  --card-foreground: oklch(0.141 0.005 285.823);
+  --primary: oklch(0.21 0.006 285.885);
+  --primary-foreground: oklch(0.985 0 0);
+  --secondary: oklch(0.967 0.001 286.375);
+  --secondary-foreground: oklch(0.21 0.006 285.885);
+  --muted: oklch(1 0 0);
+  --muted-foreground: oklch(0.552 0.016 285.938);
+  --accent: oklch(0.967 0.001 286.375);
+  --accent-foreground: oklch(0.21 0.006 285.885);
+  --destructive: oklch(0.577 0.245 27.325);
+  --border: oklch(0.95 0.002 286.32);
+  --input: oklch(0.92 0.004 286.32);
+  --ring: oklch(0.705 0.015 286.067);
+}
+
+.dark {
+  --background: oklch(0.25 0 0);
+  --foreground: oklch(0.985 0 0);
+  --card: oklch(0.23 0 0);
+  --card-foreground: oklch(0.985 0 0);
+  --primary: oklch(0.92 0.004 286.32);
+  --primary-foreground: oklch(0.21 0.006 285.885);
+  --secondary: oklch(0.3 0 0);
+  --secondary-foreground: oklch(0.985 0 0);
+  --muted: oklch(0.274 0 0);
+  --muted-foreground: oklch(0.65 0 0);
+  --accent: oklch(0.3 0 0);
+  --accent-foreground: oklch(0.985 0 0);
+  --destructive: oklch(0.704 0.191 22.216);
+  --border: oklch(1 0 0 / 10%);
+  --input: oklch(1 0 0 / 15%);
+  --ring: oklch(0.552 0.016 285.938);
+}
+
+@layer base {
+  * {
+    @apply outline-ring/50;
+    border-color: transparent;
+  }
+  body {
+    @apply bg-background text-foreground;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+}
+
+@keyframes pulse-dot {
+  0%,
+  100% {
+    opacity: 0.4;
+    transform: scale(0.9);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.animate-pulse-dot {
+  animation: pulse-dot 1.5s ease-in-out infinite;
+  will-change: transform, opacity;
+}
+
+/* Shiki dual theme support */
+.shiki {
+  color: var(--shiki-light);
+  background-color: transparent !important;
+}
+
+.shiki span {
+  color: var(--shiki-light);
+  background-color: transparent !important;
+}
+
+.dark .shiki {
+  color: var(--shiki-dark);
+  background-color: transparent !important;
+}
+
+.dark .shiki span {
+  color: var(--shiki-dark);
+  background-color: transparent !important;
+}
+
+/* Code block styling for Streamdown */
+[data-streamdown="code-block"] {
+  width: 100% !important;
+  margin-top: 1rem !important;
+  margin-bottom: 1rem !important;
+  overflow: hidden !important;
+  border: none !important;
+  border-radius: 0.75rem !important;
+  background-color: var(--card) !important;
+  content-visibility: visible !important;
+}
+
+[data-streamdown="code-block-header"] {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  padding: 0.5rem 1rem !important;
+  font-size: 0.875rem !important;
+  color: var(--muted-foreground) !important;
+  background-color: var(--card) !important;
+  border: none !important;
+  box-shadow: none !important;
+  outline: none !important;
+}
+
+[data-streamdown="code-block-header"]::before,
+[data-streamdown="code-block-header"]::after {
+  display: none !important;
+}
+
+[data-streamdown="code-block-header"] > span:first-child {
+  margin-left: 0 !important;
+  font-family: inherit !important;
+  text-transform: none !important;
+}
+
+pre[data-streamdown="code-block-body"],
+div[data-streamdown="code-block-body"] {
+  overflow-x: auto !important;
+  padding: 0 1rem 1rem 1rem !important;
+  margin: 0 !important;
+  font-size: 0.875rem !important;
+  line-height: 1.5 !important;
+  color: inherit !important;
+  background-color: var(--card) !important;
+  border: none !important;
+  box-shadow: none !important;
+  outline: none !important;
+}
+
+pre[data-streamdown="code-block-body"]::before,
+pre[data-streamdown="code-block-body"]::after,
+div[data-streamdown="code-block-body"]::before,
+div[data-streamdown="code-block-body"]::after {
+  display: none !important;
+}
+
+.dark pre[data-streamdown="code-block-body"] {
+  background-color: var(--card) !important;
+}
+
+[data-streamdown="code-block-body"] pre,
+[data-streamdown="code-block-body"] pre.shiki {
+  margin: 0 !important;
+  padding: 0 !important;
+  background-color: transparent !important;
+  line-height: inherit !important;
+  white-space: pre !important;
+}
+
+[data-streamdown="code-block-body"] code {
+  display: flex !important;
+  flex-direction: column !important;
+  line-height: 1.5 !important;
+  background-color: transparent !important;
+}
+
+[data-streamdown="code-block-body"] code > span,
+[data-streamdown="code-block-body"] code > span.line {
+  display: block !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  line-height: 1.5 !important;
+}
+
+[data-streamdown="code-block-body"] code > span::before {
+  display: none !important;
+}
+
+[data-streamdown="code-block-body"] code span {
+  background-color: transparent !important;
+}
+
+.dark [data-streamdown="code-block-body"] code span {
+  color: var(--shiki-dark) !important;
+  background-color: transparent !important;
+}
