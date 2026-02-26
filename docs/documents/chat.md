@@ -38,7 +38,7 @@ extract the final assistant message. `onError` handles any errors.
   });
 ```
 
-[app/page.tsx](https://github.com/anuma-ai/starter-mini/blob/main/app/page.tsx#L179-L204)
+[app/page.tsx](https://github.com/anuma-ai/starter-mini/blob/main/app/page.tsx#L204-L229)
 
 ## Message Type
 
@@ -51,6 +51,25 @@ type Message = {
   role: "user" | "assistant";
   content: string;
 };
+
+type OutputTextPart = {
+  type: "output_text";
+  text?: string;
+};
+
+type ContentPart = OutputTextPart | { type: string };
+
+type OutputMessage = {
+  type: "message";
+  role: "assistant";
+  content?: ContentPart[];
+};
+
+type OutputItem = OutputMessage | { type: string };
+
+type ChatResponse = {
+  output?: OutputItem[];
+};
 ```
 
-[app/page.tsx](https://github.com/anuma-ai/starter-mini/blob/main/app/page.tsx#L22-L26)
+[app/page.tsx](https://github.com/anuma-ai/starter-mini/blob/main/app/page.tsx#L27-L50)

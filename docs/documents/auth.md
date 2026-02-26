@@ -14,6 +14,7 @@ const privyClientId = process.env.NEXT_PUBLIC_PRIVY_CLIENT_ID;
 
 export default function Home() {
   const [mounted, setMounted] = useState(false);
+  // eslint-disable-next-line react-hooks/set-state-in-effect -- hydration guard, runs once on mount
   useEffect(() => setMounted(true), []);
 
   if (!mounted) return null;
@@ -34,7 +35,7 @@ export default function Home() {
 }
 ```
 
-[app/page.tsx](https://github.com/anuma-ai/starter-mini/blob/main/app/page.tsx#L34-L56)
+[app/page.tsx](https://github.com/anuma-ai/starter-mini/blob/main/app/page.tsx#L58-L81)
 
 ## Auth Gate
 
@@ -61,7 +62,7 @@ function AuthGate() {
 }
 ```
 
-[app/page.tsx](https://github.com/anuma-ai/starter-mini/blob/main/app/page.tsx#L64-L80)
+[app/page.tsx](https://github.com/anuma-ai/starter-mini/blob/main/app/page.tsx#L89-L105)
 
 ## Getting an Identity Token
 
@@ -78,4 +79,4 @@ always returns the latest value without causing re-renders.
   const getToken = useCallback(async () => tokenRef.current, []);
 ```
 
-[app/page.tsx](https://github.com/anuma-ai/starter-mini/blob/main/app/page.tsx#L147-L152)
+[app/page.tsx](https://github.com/anuma-ai/starter-mini/blob/main/app/page.tsx#L172-L177)
