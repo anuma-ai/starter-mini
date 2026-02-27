@@ -13,7 +13,8 @@
     "test:e2e:light": "playwright test --grep @light",
     "test:e2e:full": "playwright test --grep @full",
     "test:e2e:ui": "playwright test --ui",
-    "test:e2e:headed": "playwright test --headed"
+    "test:e2e:headed": "playwright test --headed",
+    "demo": "playwright test e2e/demo.spec.ts"
   },
   "dependencies": {
     "@anuma/sdk": "1.0.0-next.20260226054609",
