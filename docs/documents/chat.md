@@ -1,5 +1,12 @@
 # Chat
 
+```tsx
+import { useChat } from "@anuma/sdk/react";
+import type { LlmapiResponseResponse, LlmapiResponseOutputItem } from "@anuma/sdk";
+```
+
+[app/page.tsx](https://github.com/anuma-ai/starter-mini/blob/main/app/page.tsx#L15-L16)
+
 ## useChat Hook
 
 The `useChat` hook from `@anuma/sdk/react` handles the connection to the Anuma
@@ -38,7 +45,7 @@ extract the final assistant message. `onError` handles any errors.
   });
 ```
 
-[app/page.tsx](https://github.com/anuma-ai/starter-mini/blob/main/app/page.tsx#L187-L212)
+[app/page.tsx](https://github.com/anuma-ai/starter-mini/blob/main/app/page.tsx#L193-L218)
 
 ## Message Type
 
@@ -54,4 +61,4 @@ type Message = {
 
 ```
 
-[app/page.tsx](https://github.com/anuma-ai/starter-mini/blob/main/app/page.tsx#L28-L33)
+[app/page.tsx](https://github.com/anuma-ai/starter-mini/blob/main/app/page.tsx#L34-L39)

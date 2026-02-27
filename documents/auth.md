@@ -3,6 +3,8 @@
 The app uses [Privy](https://privy.io) for authentication. The entire auth flow
 lives in `app/page.tsx`.
 
+{@includeCode ../app/page.tsx#importPrivy}
+
 ## Privy Provider
 
 The root component wraps the app in a `PrivyProvider` with the app ID from

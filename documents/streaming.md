@@ -1,5 +1,7 @@
 # Streaming
 
+{@includeCode ../app/page.tsx#importStreamdown}
+
 The SDK streams response text through the `onData` callback. Each chunk is
 appended to a ref (for the latest value) and mirrored to React state (to trigger
 re-renders). The `Streamdown` component renders the streaming markdown with

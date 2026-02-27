@@ -1,5 +1,11 @@
 # Streaming
 
+```tsx
+import { Streamdown } from "streamdown";
+```
+
+[app/page.tsx](https://github.com/anuma-ai/starter-mini/blob/main/app/page.tsx#L19-L19)
+
 The SDK streams response text through the `onData` callback. Each chunk is
 appended to a ref (for the latest value) and mirrored to React state (to trigger
 re-renders). The `Streamdown` component renders the streaming markdown with
@@ -38,4 +44,4 @@ array. The streaming buffer is then cleared.
   });
 ```
 
-[app/page.tsx](https://github.com/anuma-ai/starter-mini/blob/main/app/page.tsx#L187-L212)
+[app/page.tsx](https://github.com/anuma-ai/starter-mini/blob/main/app/page.tsx#L193-L218)
