@@ -8,10 +8,16 @@ import {
   type KeyboardEvent,
   type FormEvent,
 } from "react";
+//#region importPrivy
 import { PrivyProvider, usePrivy, useIdentityToken } from "@privy-io/react-auth";
+//#endregion importPrivy
+//#region importChat
 import { useChat } from "@anuma/sdk/react";
 import type { LlmapiResponseResponse, LlmapiResponseOutputItem } from "@anuma/sdk";
+//#endregion importChat
+//#region importStreamdown
 import { Streamdown } from "streamdown";
+//#endregion importStreamdown
 import { HugeiconsIcon } from "@hugeicons/react";
 import {
   SourceCodeSquareIcon,

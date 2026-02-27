@@ -1,4 +1,5 @@
 const meta = {
+  README: "Introduction",
   setup: "Setup",
   auth: "Authentication",
   chat: "Chat",

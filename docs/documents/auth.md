@@ -3,6 +3,12 @@
 The app uses [Privy](https://privy.io) for authentication. The entire auth flow
 lives in `app/page.tsx`.
 
+```tsx
+import { PrivyProvider, usePrivy, useIdentityToken } from "@privy-io/react-auth";
+```
+
+[app/page.tsx](https://github.com/anuma-ai/starter-mini/blob/main/app/page.tsx#L12-L12)
+
 ## Privy Provider
 
 The root component wraps the app in a `PrivyProvider` with the app ID from
@@ -35,7 +41,7 @@ export default function Home() {
 }
 ```
 
-[app/page.tsx](https://github.com/anuma-ai/starter-mini/blob/main/app/page.tsx#L41-L64)
+[app/page.tsx](https://github.com/anuma-ai/starter-mini/blob/main/app/page.tsx#L47-L70)
 
 ## Auth Gate
 
@@ -62,7 +68,7 @@ function AuthGate() {
 }
 ```
 
-[app/page.tsx](https://github.com/anuma-ai/starter-mini/blob/main/app/page.tsx#L72-L88)
+[app/page.tsx](https://github.com/anuma-ai/starter-mini/blob/main/app/page.tsx#L78-L94)
 
 ## Getting an Identity Token
 
@@ -79,4 +85,4 @@ always returns the latest value without causing re-renders.
   const getToken = useCallback(async () => tokenRef.current, []);
 ```
 
-[app/page.tsx](https://github.com/anuma-ai/starter-mini/blob/main/app/page.tsx#L155-L160)
+[app/page.tsx](https://github.com/anuma-ai/starter-mini/blob/main/app/page.tsx#L161-L166)

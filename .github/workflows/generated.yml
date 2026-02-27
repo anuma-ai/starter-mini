@@ -23,19 +23,20 @@ jobs:
           git config --global user.name "GitHub Actions"
           git config --global user.email "actions@github.com"
 
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: "22"
-
-      - name: Update npm
-        run: npm install -g npm@11
+          cache: pnpm
 
       - name: Install dependencies
-        run: npm ci
+        run: pnpm install --frozen-lockfile
 
       - name: Generate docs
-        run: npm run generate
+        run: pnpm generate
 
       - name: Check if docs changed
         id: changes
@@ -46,8 +47,8 @@ jobs:
       - name: Fail if docs changed
         if: steps.changes.outputs.docs_changed == 'true'
         run: |
-          echo "❌ Changes detected in docs/ after running 'npm run generate'"
-          echo "Please run 'npm run generate' locally and commit the changes."
+          echo "❌ Changes detected in docs/ after running 'pnpm generate'"
+          echo "Please run 'pnpm generate' locally and commit the changes."
           echo ""
           echo "Changed files:"
           git status docs/

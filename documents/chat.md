@@ -1,5 +1,7 @@
 # Chat
 
+{@includeCode ../app/page.tsx#importChat}
+
 ## useChat Hook
 
 The `useChat` hook from `@anuma/sdk/react` handles the connection to the Anuma

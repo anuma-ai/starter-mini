@@ -13,10 +13,14 @@ jobs:
         with:
           token: ${{ secrets.PAT_TOKEN }}
 
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: "22"
+          cache: pnpm
 
       - name: Check latest @anuma/sdk@next version
         id: sdk
@@ -30,7 +34,7 @@ jobs:
 
       - name: Update @anuma/sdk
         if: steps.sdk.outputs.latest != steps.sdk.outputs.current
-        run: npm install @anuma/sdk@${{ steps.sdk.outputs.latest }}
+        run: pnpm add @anuma/sdk@${{ steps.sdk.outputs.latest }}
 
       - name: Create or update PR
         if: steps.sdk.outputs.latest != steps.sdk.outputs.current
