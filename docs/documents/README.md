@@ -1,36 +1,57 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Starter Mini
+
+Starter Mini is a minimal AI chat application built with the
+[Anuma SDK](https://ai-docs.zetachain.app/), [Privy](https://privy.io) for
+authentication, and [Next.js](https://nextjs.org). The entire app fits in a
+single file — `app/page.tsx` — making it a good starting point for understanding
+how the pieces connect.
+
+This guide walks through the codebase section by section: project setup,
+authentication, the chat hook, streaming responses, and sending messages.
 
 ## Getting Started
 
-First, run the development server:
+Clone the repository and install dependencies:
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+git clone https://github.com/anuma-ai/starter-mini.git
+cd starter-mini
+pnpm install
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+You'll need Node.js 18+ and a Privy app ID. Create a `.env.local` file in the
+project root:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```
+NEXT_PUBLIC_PRIVY_APP_ID=<your-privy-app-id>
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Start the development server:
 
-## Learn More
+```bash
+pnpm dev
+```
 
-To learn more about Next.js, take a look at the following resources:
+Open http://localhost:3000 to see the app. You'll land on a sign-in screen —
+after authenticating through Privy, you'll get a chat interface where you can
+talk to an AI model.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## What's in the Tutorial
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+**[Setup](./documents/setup.md)** covers the Next.js configuration — wrapping
+your config with `withAnuma` to set up the API proxy the SDK needs.
 
-## Deploy on Vercel
+**[Authentication](./documents/auth.md)** explains the Privy integration: the
+provider, the auth gate that switches between login and chat, and how identity
+tokens are passed to the SDK.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+**[Chat](./documents/chat.md)** introduces the `useChat` hook from
+`@anuma/sdk/react`, which manages the connection to the Anuma backend, and the
+message state model.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+**[Streaming](./documents/streaming.md)** describes how response text arrives in
+chunks through the `onData` callback and gets rendered as markdown in real time.
+
+**[Sending Messages](./documents/sending.md)** walks through the submit handler
+that formats messages for the API and sends the full conversation history with
+each request.
