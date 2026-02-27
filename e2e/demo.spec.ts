@@ -1,4 +1,6 @@
 import { test, expect } from "@playwright/test";
+import fs from "fs";
+import path from "path";
 
 // Override storageState so we start logged out
 test.use({ storageState: { cookies: [], origins: [] } });
@@ -116,4 +118,12 @@ test("demo walkthrough", async ({ page }) => {
   await page.locator("form button[type='button']").waitFor({ timeout: 10000 });
   await page.locator("form button[type='submit']").waitFor({ timeout: 120000 });
   await page.waitForTimeout(PAUSE_MS * 2);
+
+  // Copy the recorded video to public/demo.webm
+  await page.close();
+  const videoPath = await page.video()?.path();
+  if (videoPath) {
+    const dest = path.resolve(__dirname, "../public/demo.webm");
+    fs.copyFileSync(videoPath, dest);
+  }
 });

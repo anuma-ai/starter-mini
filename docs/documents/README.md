@@ -9,6 +9,8 @@ how the pieces connect.
 This guide walks through the codebase section by section: project setup,
 authentication, the chat hook, streaming responses, and sending messages.
 
+<video src="https://raw.githubusercontent.com/anuma-ai/starter-mini/main/public/demo.webm" autoplay loop muted playsinline></video>
+
 ## Getting Started
 
 Clone the repository and install dependencies:
