@@ -38,20 +38,18 @@ talk to an AI model.
 
 ## What's in the Tutorial
 
-**[Setup](./documents/setup.md)** covers the Next.js configuration — wrapping
-your config with `withAnuma` to set up the API proxy the SDK needs.
+**Setup** covers the Next.js configuration — wrapping your config with
+`withAnuma` to set up the API proxy the SDK needs.
 
-**[Authentication](./documents/auth.md)** explains the Privy integration: the
-provider, the auth gate that switches between login and chat, and how identity
-tokens are passed to the SDK.
+**Authentication** explains the Privy integration: the provider, the auth gate
+that switches between login and chat, and how identity tokens are passed to the
+SDK.
 
-**[Chat](./documents/chat.md)** introduces the `useChat` hook from
-`@anuma/sdk/react`, which manages the connection to the Anuma backend, and the
-message state model.
+**Chat** introduces the `useChat` hook from `@anuma/sdk/react`, which manages
+the connection to the Anuma backend, and the message state model.
 
-**[Streaming](./documents/streaming.md)** describes how response text arrives in
-chunks through the `onData` callback and gets rendered as markdown in real time.
+**Streaming** describes how response text arrives in chunks through the `onData`
+callback and gets rendered as markdown in real time.
 
-**[Sending Messages](./documents/sending.md)** walks through the submit handler
-that formats messages for the API and sends the full conversation history with
-each request.
+**Sending Messages** walks through the submit handler that formats messages for
+the API and sends the full conversation history with each request.
