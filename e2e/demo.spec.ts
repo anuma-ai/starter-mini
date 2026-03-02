@@ -1,5 +1,4 @@
 import { test, expect } from "@playwright/test";
-import fs from "fs";
 import path from "path";
 
 // Override storageState so we start logged out
@@ -109,6 +108,7 @@ test("demo walkthrough", async ({ page }) => {
 
   // --- Second message ---
 
+  await chatInput.click();
   await chatInput.pressSequentially("Tell me one fun fact about it", {
     delay: TYPE_DELAY_MS,
   });
@@ -119,11 +119,8 @@ test("demo walkthrough", async ({ page }) => {
   await page.locator("form button[type='submit']").waitFor({ timeout: 120000 });
   await page.waitForTimeout(PAUSE_MS * 2);
 
-  // Copy the recorded video to public/demo.webm
+  // Save the recorded video to public/demo.webm
+  const dest = path.resolve(__dirname, "../public/demo.webm");
   await page.close();
-  const videoPath = await page.video()?.path();
-  if (videoPath) {
-    const dest = path.resolve(__dirname, "../public/demo.webm");
-    fs.copyFileSync(videoPath, dest);
-  }
+  await page.video()?.saveAs(dest);
 });
