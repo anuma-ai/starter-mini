@@ -137,7 +137,7 @@ for (const srcFile of collectFiles(DOCS_SRC, ".md")) {
 // Copy README into docs output.
 if (existsSync("README.md")) {
   mkdirSync(DOCS_OUT, { recursive: true });
-  copyFileSync("README.md", join(DOCS_OUT, "README.md"));
+  copyFileSync("README.md", join(DOCS_OUT, "index.md"));
 }
 
 // Copy _meta.js navigation files.
