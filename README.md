@@ -1,7 +1,7 @@
 # Starter Mini
 
 Starter Mini is a minimal AI chat application built with the
-[Anuma SDK](https://ai-docs.zetachain.app/), [Privy](https://privy.io) for
+[Anuma SDK](https://github.com/anuma-ai/sdk), [Privy](https://privy.io) for
 authentication, and [Next.js](https://nextjs.org). The entire app fits in a
 single file — `app/page.tsx` — making it a good starting point for understanding
 how the pieces connect.
