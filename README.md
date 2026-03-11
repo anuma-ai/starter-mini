@@ -6,6 +6,8 @@ authentication, and [Next.js](https://nextjs.org). The entire app fits in a
 single file — `app/page.tsx` — making it a good starting point for understanding
 how the pieces connect.
 
+<video src="https://github.com/anuma-ai/starter-mini/raw/refs/heads/main/public/demo.webm" autoplay loop playsinline style="border-radius: 8px;"></video>
+
 ## Getting Started
 
 ### Create an Anuma app
