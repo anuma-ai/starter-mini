@@ -37,8 +37,8 @@ NEXT_PUBLIC_PRIVY_APP_ID=<your-privy-app-id>
 pnpm dev
 ```
 
-Open http://localhost:3000 to see the app. After signing in through Privy
-you'll get a chat interface where you can talk to an AI model.
+Open [http://localhost:3000](http://localhost:3000) to see the app. After signing
+in through Privy you'll get a chat interface where you can talk to an AI model.
 
 ## What's in the Tutorial
 
