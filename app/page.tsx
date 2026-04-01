@@ -193,6 +193,7 @@ function Chat() {
   // SDK chat hook
   const { isLoading, sendMessage, stop } = useChat({
     getToken,
+    baseUrl: process.env.NEXT_PUBLIC_API_URL,
     onData: (chunk) => {
       streamingRef.current += chunk;
       setStreamingText(streamingRef.current);
