@@ -20,6 +20,7 @@ extract the final assistant message. `onError` handles any errors.
   // SDK chat hook
   const { isLoading, sendMessage, stop } = useChat({
     getToken,
+    baseUrl: process.env.NEXT_PUBLIC_API_URL,
     onData: (chunk) => {
       streamingRef.current += chunk;
       setStreamingText(streamingRef.current);
@@ -45,7 +46,7 @@ extract the final assistant message. `onError` handles any errors.
   });
 ```
 
-[app/page.tsx](https://github.com/anuma-ai/starter-mini/blob/main/app/page.tsx#L193-L218)
+[app/page.tsx](https://github.com/anuma-ai/starter-mini/blob/main/app/page.tsx#L193-L219)
 
 ## Message Type
 

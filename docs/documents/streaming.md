@@ -19,6 +19,7 @@ array. The streaming buffer is then cleared.
   // SDK chat hook
   const { isLoading, sendMessage, stop } = useChat({
     getToken,
+    baseUrl: process.env.NEXT_PUBLIC_API_URL,
     onData: (chunk) => {
       streamingRef.current += chunk;
       setStreamingText(streamingRef.current);
@@ -44,4 +45,4 @@ array. The streaming buffer is then cleared.
   });
 ```
 
-[app/page.tsx](https://github.com/anuma-ai/starter-mini/blob/main/app/page.tsx#L193-L218)
+[app/page.tsx](https://github.com/anuma-ai/starter-mini/blob/main/app/page.tsx#L193-L219)
