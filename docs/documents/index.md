@@ -28,6 +28,7 @@ pnpm install
 Create a `.env.local` file in the project root:
 
 ```
+NEXT_PUBLIC_API_URL=https://portal.anuma.ai
 NEXT_PUBLIC_PRIVY_APP_ID=<your-privy-app-id>
 ```
 
